@@ -25,8 +25,7 @@
 //         iii. Worst Case: O(n^2)
 //     ii. Quick Sort typically has an average-case time complexity of O(n log n), making it efficient for most 
 //         inputs.
-//     iii. However, in the worst-case scenario where the pivot selection is poor (e.g., when the array is 
-//         already sorted), Quick Sort can degrade to O(n^2) time complexity.
+//     iii. However, in the worst-case scenario where the pivot selection is poor Quick Sort can degrade to O(n^2) time complexity.
 //     iv. Quick Sort's average-case performance is often better than Merge Sort due to its in-place 
 //         partitioning, which reduces the need for additional memory.
 
