@@ -1,4 +1,6 @@
-public class RecursionSolver {
+// Solve the recursion relation T(n)= 16t(n/4) + 5n^3
+
+public class qno2RecursionSolver {
     public static void main(String[] args) {
         int n = 16; // Choose any value for n
         long result = solveRecursion(n);

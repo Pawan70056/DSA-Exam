@@ -1,5 +1,5 @@
 // 1. Prove that 5* n^2 + 2* n -3 = O(n^2)
-public class provethat {
+public class qno1provethat {
     public static void main(String[] args) {
         int n0 = 1; // Starting value for n
         int c = 6; // Let's choose c = 6

@@ -1,4 +1,4 @@
-class EightQueensProblem {
+class qno10EightQueensProblem {
     final int N = 8; // Size of the chessboard
     int[] board = new int[N]; // Array to represent the positions of queens
     
@@ -62,9 +62,9 @@ class EightQueensProblem {
 }
 
 // Main class
-public class Main {
+public class qno10Main {
     public static void main(String[] args) {
-        EightQueensProblem problem = new EightQueensProblem();
+        qno10EightQueensProblem problem = new qno10EightQueensProblem();
         problem.solve();
     }
 }

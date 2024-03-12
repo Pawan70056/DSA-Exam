@@ -1,11 +1,11 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class StackUsingQueue<T> {
+public class Qno9StackUsingQueue<T> {
     private Queue<T> queue1;
     private Queue<T> queue2;
 
-    public StackUsingQueue() {
+    public Qno9StackUsingQueue() {
         queue1 = new LinkedList<>();
         queue2 = new LinkedList<>();
     }
@@ -37,7 +37,7 @@ public class StackUsingQueue<T> {
     }
 
     public static void main(String[] args) {
-        StackUsingQueue<Integer> stack = new StackUsingQueue<>();
+        Qno9StackUsingQueue<Integer> stack = new Qno9StackUsingQueue<>();
         stack.push(1);
         stack.push(2);
         stack.push(3);

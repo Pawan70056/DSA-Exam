@@ -1,10 +1,10 @@
 import java.util.Stack;
 
-public class QueueUsingStack<T> {
+public class Qno9QueueUsingStack<T> {
     private Stack<T> inbox;
     private Stack<T> outbox;
 
-    public QueueUsingStack() {
+    public Qno9QueueUsingStack() {
         inbox = new Stack<>();
         outbox = new Stack<>();
     }
@@ -31,7 +31,7 @@ public class QueueUsingStack<T> {
     }
 
     public static void main(String[] args) {
-        QueueUsingStack<Integer> queue = new QueueUsingStack<>();
+        Qno9QueueUsingStack<Integer> queue = new Qno9QueueUsingStack<>();
         queue.enqueue(1);
         queue.enqueue(2);
         queue.enqueue(3);

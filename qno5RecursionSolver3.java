@@ -1,6 +1,8 @@
-public class RecursionSolver2 {
+// T(n) = 3T(n/4) + n(logn)
+
+public class qno5RecursionSolver3 {
     public static void main(String[] args) {
-        int n = 16; // Choose any value for n
+        int n = 3; // Choose any value for n
         double result = solveRecursion(n);
         System.out.println("T(" + n + ") = " + result);
     }
@@ -8,9 +10,9 @@ public class RecursionSolver2 {
     public static double solveRecursion(int n) {
         // Base case
         if (n <= 1) {
-            return Math.sqrt(n);
+            return n * Math.log(n);
         }
         // Recursive case
-        return 2 * solveRecursion(n / 4) + Math.sqrt(n);
+        return 3 * solveRecursion(n / 4) + n * Math.log(n);
     }
 }

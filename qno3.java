@@ -1,4 +1,6 @@
-public class RecursionSolver1 {
+// t(n) = 2T (n/2) + n
+
+public class qno3 {
     public static void main(String[] args) {
         int n = 2; // Choose any value for n
         long result = solveRecursion(n);

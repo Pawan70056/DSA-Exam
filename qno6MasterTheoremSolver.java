@@ -1,4 +1,4 @@
-public class MasterTheoremSolver {
+public class qno6MasterTheoremSolver {
     public static void main(String[] args) {
         // Test each recursion relation
         System.out.println("Question 2:");

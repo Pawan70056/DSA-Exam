@@ -1,4 +1,4 @@
-public class MyHashMap<K, V> {
+public class qno13MyHashMap<K, V> {
     private static final int DEFAULT_CAPACITY = 16;
     private static final double LOAD_FACTOR_THRESHOLD = 0.75;
 
@@ -6,11 +6,11 @@ public class MyHashMap<K, V> {
     private int size;
     private int capacity;
 
-    public MyHashMap() {
+    public qno13MyHashMap() {
         this(DEFAULT_CAPACITY);
     }
 
-    public MyHashMap(int initialCapacity) {
+    public qno13MyHashMap(int initialCapacity) {
         this.capacity = initialCapacity;
         this.table = new Entry[capacity];
         this.size = 0;

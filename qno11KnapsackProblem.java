@@ -1,4 +1,4 @@
-public class KnapsackProblem {
+public class qno11KnapsackProblem {
 
     public static int knapsack(int[] weights, int[] values, int capacity) {
         int n = weights.length;
