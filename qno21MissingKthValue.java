@@ -8,25 +8,20 @@
 public class qno21MissingKthValue {
     public static int findMissingKth(int[] arr, int k) {
         int n = arr.length;
-        int expectedDiff = (arr[n - 1] - arr[0]) / (n - 1); // Calculate the expected difference between consecutive elements
+        int expectedDiff = (arr[n - 1] - arr[0]) / (n - 1); 
         int missingCount = 0;
 
         for (int i = 1; i < n; i++) {
             int actualDiff = arr[i] - arr[i - 1];
-            int numMissing = (actualDiff / expectedDiff) - 1; // Calculate the number of missing elements between arr[i-1] and arr[i]
-
+            int numMissing = (actualDiff / expectedDiff) - 1; 
             if (missingCount + numMissing >= k) {
-                // If the missing count plus the missing elements between arr[i-1] and arr[i] is greater than or equal to k,
-                // the missing element lies between arr[i-1] and arr[i].
                 int diff = k - missingCount;
                 return arr[i - 1] + diff * expectedDiff;
             }
 
             missingCount += numMissing;
         }
-
-        // If k is greater than the total number of missing elements in the array,
-        // the missing element lies after the last element of the array.
+        
         return arr[n - 1] + (k - missingCount) * expectedDiff;
     }
 

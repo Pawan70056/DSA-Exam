@@ -3,16 +3,16 @@
 public class qno3 {
     public static void main(String[] args) {
         int n = 2; // Choose any value for n
-        long result = solveRecursion(n);
+        long result = num(n);
         System.out.println("T(" + n + ") = " + result);
     }
 
-    public static long solveRecursion(int n) {
+    public static long num(int n) {
         // Base case
         if (n <= 1) {
             return 0;
         }
         // Recursive case
-        return 2 * solveRecursion(n / 2) + n;
+        return 2 * num(n / 2) + n;
     }
 }

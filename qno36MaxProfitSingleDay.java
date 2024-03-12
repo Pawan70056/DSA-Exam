@@ -12,11 +12,8 @@ public class qno36MaxProfitSingleDay {
         int minPrice = prices[0];
 
         for (int i = 1; i < prices.length; i++) {
-            // Update minimum price encountered so far
             minPrice = Math.min(minPrice, prices[i]);
-            // Calculate current profit if selling at current price
             int currentProfit = prices[i] - minPrice;
-            // Update maximum profit if current profit is greater
             maxProfit = Math.max(maxProfit, currentProfit);
         }
 
