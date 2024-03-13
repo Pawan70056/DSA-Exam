@@ -1,18 +1,19 @@
 // t(n) = 2T (n/2) + n
 
-public class qno3 {
-    public static void main(String[] args) {
-        int n = 2; // Choose any value for n
-        long result = num(n);
-        System.out.println("T(" + n + ") = " + result);
-    }
+// Let's expand the recursion and see the pattern:
+// T(n)=2T(n/2)+n
+//         =2(2T(n/4)+ n/2)+n
+//         =2^2T(n/2^2)+2n
+//         =2^3T(n/2^3)+3n
+//         ;
+//         =2^k*T(n/2^k)+kn
 
-    public static long num(int n) {
-        // Base case
-        if (n <= 1) {
-            return 0;
-        }
-        // Recursive case
-        return 2 * num(n / 2) + n;
-    }
-}
+// We Continue until n/2^k = 1. This implies k=log2n.
+
+// Now, substitute k=log2n:
+
+//         T(n)=2^log2n* T(1)+nlog2n
+//             =nT(1)+nlog2n
+//             =nT(1)+nlog2n
+
+//             or O(nlogn)
