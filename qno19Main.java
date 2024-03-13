@@ -15,6 +15,7 @@ class Edge {
 }
 
 class BellmanFord {
+    @SuppressWarnings("unused")
     private int V, E;
     private List<Edge> edges;
 

@@ -22,6 +22,7 @@ public class qno32MatrixMultiplication {
 
     public static int[][] multiplyMatrices(int[][] matrix1, int[][] matrix2) {
         int rows1 = matrix1.length;
+        @SuppressWarnings("unused")
         int cols1 = matrix1[0].length;
         int cols2 = matrix2[0].length;
 

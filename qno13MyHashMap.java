@@ -10,6 +10,7 @@ public class qno13MyHashMap<K, V> {
         this(DEFAULT_CAPACITY);
     }
 
+    @SuppressWarnings("unchecked")
     public qno13MyHashMap(int initialCapacity) {
         this.capacity = initialCapacity;
         this.table = new Entry[capacity];
@@ -52,6 +53,7 @@ public class qno13MyHashMap<K, V> {
 
     private static class Entry<K, V> {
         K key;
+        @SuppressWarnings("unused")
         V value;
 
         Entry(K key, V value) {

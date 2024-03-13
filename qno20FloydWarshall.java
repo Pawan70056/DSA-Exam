@@ -1,9 +1,6 @@
 // Implement Floyd Warshall algorithm.
 
 // Answer:
-
-import java.util.Arrays;
-
 public class qno20FloydWarshall {
     static int INF = Integer.MAX_VALUE;
 
