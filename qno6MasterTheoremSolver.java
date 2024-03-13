@@ -2,11 +2,11 @@ public class qno6MasterTheoremSolver {
     public static void main(String[] args) {
         // Test each recursion relation
         System.out.println("Question 2:");
-        System.out.println("T(n) = " + solveRecursionQuestion2(16));
+        System.out.println("T(n) = " + solveRecursionQuestion2(4));
         System.out.println("\nQuestion 3:");
-        System.out.println("T(n) = " + solveRecursionQuestion3(2));
+        System.out.println("T(n) = " + solveRecursionQuestion3(4));
         System.out.println("\nQuestion 4:");
-        System.out.println("T(n) = " + solveRecursionQuestion4(2));
+        System.out.println("T(n) = " + solveRecursionQuestion4(3));
         System.out.println("\nQuestion 5:");
         System.out.println("T(n) = " + solveRecursionQuestion5(3));
     }
