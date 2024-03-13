@@ -8,21 +8,21 @@
 public class qno21MissingKthValue {
     public static int findMissingKth(int[] arr, int k) {
         int n = arr.length;
-        int expectedDiff = (arr[n - 1] - arr[0]) / (n - 1); 
-        int missingCount = 0;
+        int Diff = (arr[n - 1] - arr[0]) / (n - 1); 
+        int Count = 0;
 
         for (int i = 1; i < n; i++) {
-            int actualDiff = arr[i] - arr[i - 1];
-            int numMissing = (actualDiff / expectedDiff) - 1; 
-            if (missingCount + numMissing >= k) {
-                int diff = k - missingCount;
-                return arr[i - 1] + diff * expectedDiff;
+            int a = arr[i] - arr[i - 1];
+            int num = (a / Diff) - 1; 
+            if (Count + num >= k) {
+                int diff = k - Count;
+                return arr[i - 1] + diff * Diff;
             }
 
-            missingCount += numMissing;
+            Count += num;
         }
         
-        return arr[n - 1] + (k - missingCount) * expectedDiff;
+        return arr[n - 1] + (k - Count) * Diff;
     }
 
     public static void main(String[] args) {

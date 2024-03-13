@@ -4,24 +4,23 @@
 // Answer::
 
 public class qno22MissingKthValue {
-    public static int findMissingKthValue(int[] array, int k) {
+    public static int findKthValue(int[] array, int k) {
         int n = array.length;
-        
-        int sumOfFirstN = (n + 1) * (n + 2) / 2;
-        int actualSum = 0;
+        int Num = (n + 1) * (n + 2) / 2;
+        int Sum = 0;
         for (int num : array) {
-            actualSum += num;
+            Sum += num;
         }
-        int missingValue = sumOfFirstN - actualSum;
+        int Value = Num - Sum;
         
-        return missingValue;
+        return Value;
     }
     
     public static void main(String[] args) {
-        int[] array = {1, 2, 3, 4, 6, 7, 8, 9, 10}; // Example array
-        int k = 5; // Example Kth value
+        int[] a = {1, 2, 3, 4, 6, 7, 8, 9, 10}; 
+        int k = 5; 
         
-        int missingValue = findMissingKthValue(array, k);
+        int missingValue = findKthValue(a, k);
         System.out.println("Missing " + k + "th value: " + missingValue);
     }
 }
