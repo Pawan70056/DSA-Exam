@@ -4,31 +4,20 @@
 // Answer::
 
 // 1. Hashing:
-//     i. Strengths:
-//         i. Efficient for retrieval operations
-//         ii. Suitable for large datasets
-
-//     ii. Weaknesses:
-//         i. Not suitable for range queries
-//         ii. Collision resolution
+//     i. Constant Time Lookup
+//     ii. Suitable for Unordered Data
+    //    iii. Memory efficiency
     
 // 2. Binary Search:
-//     i. Strengths:
-//         i. Efficient for sorted arrays
-//         ii. Preserves order
-//     ii. Weaknesses
-//         i. Costly for insertion and deletion
-//         ii. Not suitable for unsorted data
+//     i. Logarithmic Time Complexity
+//     ii. Ordered Data
+    //    iii. Deterministic
 
 // #Collision Resolution Techniques:
 // 1. Chaining:
-//     i. In chaining, each bucket in the hash table contains a linked list of elements that hash to the same index.
-//     ii. When a collision occurs, the new element is appended to the linked list at the corresponding bucket.
-//     iii. Chaining is relatively simple to implement and works well for a wide range of hash functions.
+//     i. Uses linked lists in each bucket of the hash table.
+//     ii. Simple to implement and efficient for handling multiple collisions.
 
 // 2. Open Addressing:
-//     i. In open addressing, collisions are resolved by finding an alternative location in the hash table when a 
-//         collision occurs.
-//     ii. Various methods such as linear probing, quadratic probing, or double hashing can be used to find the next 
-//         available slot.
-//     iii. Open addressing techniques require careful design to avoid clustering and ensure efficiency.
+//     i. Finds alternative locations within the hash table itself to resolve collisions.
+//     ii. No additional data structures required, reducing memory overhead.
