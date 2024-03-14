@@ -6,12 +6,12 @@
 // 1. Hashing:
 //     i. Constant Time Lookup
 //     ii. Suitable for Unordered Data
-    //    iii. Memory efficiency
+//     iii. Memory efficiency
     
 // 2. Binary Search:
 //     i. Logarithmic Time Complexity
 //     ii. Ordered Data
-    //    iii. Deterministic
+//     iii. Deterministic
 
 // #Collision Resolution Techniques:
 // 1. Chaining:
