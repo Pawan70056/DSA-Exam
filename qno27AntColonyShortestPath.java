@@ -20,146 +20,161 @@
 // Implementation of Ant Colony Optimization for Shortest Path Finding in a Connected Graph:
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class qno27AntColonyShortestPath {
-    private int numOfNodes;
+    private int numAnts;
     private double[][] graph;
-    private int numOfAnts;
-    private double[][] pheromoneMatrix;
-    private double alpha; // Pheromone importance factor
-    private double beta; // Heuristic importance factor
+    private double[][] pheromones;
+    private double alpha;
+    private double beta;
     private double evaporationRate;
-    private int source;
-    private int destination;
-    private int maxIterations;
+    private int numIterations;
+    private int numNodes;
+    private List<Integer> bestPath;
+    private double bestPathLength;
 
-    public qno27AntColonyShortestPath(int numOfNodes, double[][] graph, int numOfAnts, double alpha, double beta, double evaporationRate, int source, int destination, int maxIterations) {
-        this.numOfNodes = numOfNodes;
+    public qno27AntColonyShortestPath(int numAnts, double[][] graph, double alpha, double beta, double evaporationRate, int numIterations) {
+        this.numAnts = numAnts;
         this.graph = graph;
-        this.numOfAnts = numOfAnts;
         this.alpha = alpha;
         this.beta = beta;
         this.evaporationRate = evaporationRate;
-        this.source = source;
-        this.destination = destination;
-        this.maxIterations = maxIterations;
-        
-        // Initialize pheromone matrix
-        pheromoneMatrix = new double[numOfNodes][numOfNodes];
-        for (int i = 0; i < numOfNodes; i++) {
-            Arrays.fill(pheromoneMatrix[i], 1.0); // Initialize with equal pheromone level
-        }
+        this.numIterations = numIterations;
+        this.numNodes = graph.length;
+        this.pheromones = new double[numNodes][numNodes];
+        initializePheromones();
+        this.bestPath = new ArrayList<>();
+        this.bestPathLength = Double.POSITIVE_INFINITY;
     }
 
-    public List<Integer> findShortestPath() {
-        List<Integer> shortestPath = new ArrayList<>();
-        double shortestDistance = Double.MAX_VALUE;
-        
-        for (int iteration = 0; iteration < maxIterations; iteration++) {
-            List<List<Integer>> antPaths = constructPaths();
-            updatePheromone(antPaths);
-            
-            // Update shortest path if a better one is found
-            for (List<Integer> path : antPaths) {
-                double distance = calculateDistance(path);
-                if (distance < shortestDistance) {
-                    shortestDistance = distance;
-                    shortestPath = new ArrayList<>(path);
-                }
+    private void initializePheromones() {
+        double initialPheromone = 1.0 / numNodes;
+        for (int i = 0; i < numNodes; i++) {
+            for (int j = 0; j < numNodes; j++) {
+                pheromones[i][j] = initialPheromone;
             }
-            
-            evaporatePheromone();
         }
-        
-        return shortestPath;
     }
 
-    private List<List<Integer>> constructPaths() {
+    public void solve() {
+        for (int iter = 0; iter < numIterations; iter++) {
+            List<List<Integer>> antPaths = constructAntPaths();
+            updatePheromones(antPaths);
+            updateBestPath(antPaths);
+        }
+    }
+
+    private List<List<Integer>> constructAntPaths() {
         List<List<Integer>> antPaths = new ArrayList<>();
-        Random random = new Random();
-        
-        for (int ant = 0; ant < numOfAnts; ant++) {
+        for (int ant = 0; ant < numAnts; ant++) {
+            int startNode = new Random().nextInt(numNodes);
             List<Integer> path = new ArrayList<>();
-            boolean[] visited = new boolean[numOfNodes];
-            int currentNode = source;
-            path.add(currentNode);
-            visited[currentNode] = true;
-            
-            while (currentNode != destination) {
-                int nextNode = selectNextNode(currentNode, visited, random);
+            path.add(startNode);
+            boolean[] visited = new boolean[numNodes];
+            visited[startNode] = true;
+
+            for (int i = 0; i < numNodes - 1; i++) {
+                int currentNode = path.get(i);
+                int nextNode = selectNextNode(currentNode, visited);
                 path.add(nextNode);
                 visited[nextNode] = true;
-                currentNode = nextNode;
             }
-            
             antPaths.add(path);
         }
-        
         return antPaths;
     }
 
-    private int selectNextNode(int currentNode, boolean[] visited, Random random) {
-        double[] probabilities = new double[numOfNodes];
+    private int selectNextNode(int currentNode, boolean[] visited) {
+        double[] probabilities = new double[numNodes];
         double totalProbability = 0.0;
-        
-        for (int node = 0; node < numOfNodes; node++) {
-            if (!visited[node]) {
-                probabilities[node] = Math.pow(pheromoneMatrix[currentNode][node], alpha) * Math.pow(1.0 / graph[currentNode][node], beta);
-                totalProbability += probabilities[node];
+
+        for (int i = 0; i < numNodes; i++) {
+            if (!visited[i]) {
+                probabilities[i] = Math.pow(pheromones[currentNode][i], alpha) * Math.pow(1.0 / graph[currentNode][i], beta);
+                totalProbability += probabilities[i];
             }
         }
-        
-        double randomValue = random.nextDouble() * totalProbability;
+
+        double rand = Math.random() * totalProbability;
         double cumulativeProbability = 0.0;
-        for (int node = 0; node < numOfNodes; node++) {
-            if (!visited[node]) {
-                cumulativeProbability += probabilities[node];
-                if (cumulativeProbability >= randomValue) {
-                    return node;
+
+        for (int i = 0; i < numNodes; i++) {
+            if (!visited[i]) {
+                cumulativeProbability += probabilities[i];
+                if (cumulativeProbability >= rand) {
+                    return i;
                 }
             }
         }
-        
-        // Should not reach here
-        return -1;
+        return -1; // should not reach here
     }
 
-    private void updatePheromone(List<List<Integer>> antPaths) {
-        for (int i = 0; i < numOfNodes; i++) {
-            for (int j = 0; j < numOfNodes; j++) {
-                pheromoneMatrix[i][j] *= (1.0 - evaporationRate);
+    private void updatePheromones(List<List<Integer>> antPaths) {
+        for (int i = 0; i < numNodes; i++) {
+            for (int j = 0; j < numNodes; j++) {
+                pheromones[i][j] *= (1.0 - evaporationRate); // Evaporation
             }
         }
-        
+
         for (List<Integer> path : antPaths) {
-            double pheromoneToAdd = 1.0 / calculateDistance(path);
-            for (int i = 0; i < path.size() - 1; i++) {
-                int from = path.get(i);
-                int to = path.get(i + 1);
-                pheromoneMatrix[from][to] += pheromoneToAdd;
-                pheromoneMatrix[to][from] += pheromoneToAdd; // Pheromone is symmetric
+            double pathLength = getPathLength(path);
+            for (int i = 0; i < numNodes - 1; i++) {
+                int currentNode = path.get(i);
+                int nextNode = path.get(i + 1);
+                pheromones[currentNode][nextNode] += 1.0 / pathLength; // Pheromone deposition
+                pheromones[nextNode][currentNode] += 1.0 / pathLength; // Pheromone deposition
             }
         }
     }
 
-    private void evaporatePheromone() {
-        // Evaporate pheromone
+    private double getPathLength(List<Integer> path) {
+        double length = 0;
+        for (int i = 0; i < path.size() - 1; i++) {
+            length += graph[path.get(i)][path.get(i + 1)];
+        }
+        return length;
     }
 
-    private double calculateDistance(List<Integer> path) {
-        double distance = 0.0;
-        for (int i = 0; i < path.size() - 1; i++) {
-            distance += graph[path.get(i)][path.get(i + 1)];
+    private void updateBestPath(List<List<Integer>> antPaths) {
+        for (List<Integer> path : antPaths) {
+            double pathLength = getPathLength(path);
+            if (pathLength < bestPathLength) {
+                bestPathLength = pathLength;
+                bestPath = new ArrayList<>(path);
+            }
         }
-        return distance;
+    }
+
+    public List<Integer> getBestPath() {
+        return bestPath;
+    }
+
+    public double getBestPathLength() {
+        return bestPathLength;
     }
 
     public static void main(String[] args) {
-        // Create graph and parameters
-        
-        // Run ACO algorithm to find the shortest path
+        // Example usage
+        int numNodes = 5;
+        double[][] graph = {
+                {0, 10, 15, 20, 25},
+                {10, 0, 35, 25, 30},
+                {15, 35, 0, 30, 10},
+                {20, 25, 30, 0, 15},
+                {25, 30, 10, 15, 0}
+        };
+        int numAnts = 10;
+        double alpha = 1.0;
+        double beta = 2.0;
+        double evaporationRate = 0.5;
+        int numIterations = 1000;
+
+        qno27AntColonyShortestPath antColony = new qno27AntColonyShortestPath(numAnts, graph, alpha, beta, evaporationRate, numIterations);
+        antColony.solve();
+
+        System.out.println("Best path length: " + antColony.getBestPathLength());
+        System.out.println("Best path: " + antColony.getBestPath());
     }
 }
