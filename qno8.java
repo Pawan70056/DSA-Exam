@@ -14,35 +14,25 @@ public class qno8 {
     public static int tsp(int[][] graph) {
         int n = graph.length; // Number of cities
 
-        // dp[mask][i] represents the minimum cost to visit all cities in mask and ending at city i
         int[][] dp = new int[1 << n][n];
 
-        // Initialize dp table with maximum values
         for (int[] row : dp) {
             Arrays.fill(row, Integer.MAX_VALUE);
         }
 
-        // Base case: starting from city 0
         dp[1][0] = 0;
 
-        // Iterate through all possible subsets of cities
         for (int mask = 1; mask < (1 << n); mask++) {
             for (int last = 0; last < n; last++) {
-                // Check if last city is in the subset represented by mask
                 if ((mask & (1 << last)) != 0) {
-                    // Try to reach last city from any other city j
                     for (int j = 0; j < n; j++) {
-                        // Check if city j is not the same as last city and is in the subset represented by mask
                         if (j != last && (mask & (1 << j)) != 0) {
-                            // Update the minimum cost to reach last city from city j
                             dp[mask][last] = Math.min(dp[mask][last], dp[mask ^ (1 << last)][j] + graph[j][last]);
                         }
                     }
                 }
             }
         }
-
-        // Find the minimum cost to return to city 0 from any other city
         int minCost = Integer.MAX_VALUE;
         for (int last = 1; last < n; last++) {
             minCost = Math.min(minCost, dp[(1 << n) - 1][last] + graph[last][0]);

@@ -4,7 +4,7 @@
 // Answer::
 
 public class qno22MissingKthValue {
-    public static int findKthValue(int[] array, int k) {
+    public static int find(int[] array, int k) {
         int n = array.length;
         int Num = (n + 1) * (n + 2) / 2;
         int Sum = 0;
@@ -20,7 +20,7 @@ public class qno22MissingKthValue {
         int[] a = {1, 2, 3, 4, 6, 7, 8, 9, 10}; 
         int k = 5; 
         
-        int missingValue = findKthValue(a, k);
-        System.out.println("Missing " + k + "th value: " + missingValue);
+        int m = find(a, k);
+        System.out.println("Missing " + k + "th value: " + m);
     }
 }
